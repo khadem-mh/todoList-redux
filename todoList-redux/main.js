@@ -1,4 +1,7 @@
 import { createStore } from 'redux'
+import {
+    addTodoAction, clearAllTodosAction, removeTodoAction, completeTodoAction
+} from "./src/Redux/todoList.js"
 
 const $ = document
 const inputElemTodo = $.getElementById("inputElemTodo")

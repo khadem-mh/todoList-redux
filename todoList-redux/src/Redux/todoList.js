@@ -5,45 +5,53 @@ export const removeTodo = 'REMOVE_TODO'
 export const completeTodo = 'COMPLETE_TODO'
 
 // Reducer
-export default function reducer(state = 0, action) {
+export default function reducer(state = [], action) {
+    let stateArr = [...state]
     switch (action.type) {
-        case increaseNumber: {
-            return state + 1
+        case addTodo: {
+            let newTod = {
+                id: stateArr.length + 1,
+                text: action.text,
+                completed: false
+            }
+            stateArr.push(newTod)
+            return stateArr
         }
-        case decreaseNumber: {
-            return state - 1
+        case clearAllTodos: {
+            return []
         }
-        case setZeroNumber: {
-            return 0
-        }
-        case rotateCounterBox: {
-            state = typeof state === 'number' ? false : state ? true : false
-            return !state
+        case removeTodo: return stateArr.filter(todo => todo.id !== action.ID)
+        case completeTodo: {
+            return stateArr.map(todo => todo.id === action.ID && !todo.completed)
         }
         default: return state
     }
 }
 
 // Action Creators
-const addTodoAction = text => {
+export const addTodoAction = text => {
     return {
         type: addTodo,
+        id: 0,
         text,
         completed: false
     }
 }
-const clearAllTodosAction = () => {
+
+export const clearAllTodosAction = () => {
     return {
         type: clearAllTodos,
     }
 }
-const removeTodoAction = ID => {
+
+export const removeTodoAction = ID => {
     return {
         type: removeTodo,
         ID
     }
 }
-const completeTodoAction = ID => {
+
+export const completeTodoAction = ID => {
     return {
         type: completeTodo,
         ID,
