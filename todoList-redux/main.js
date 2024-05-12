@@ -15,7 +15,7 @@ const alert = $.getElementById('alert')
 const store = createStore(reducer)
 
 const addTodoHandler = () => {
-    let inpElemVal = inputElemTodo.target.value
+    let inpElemVal = inputElemTodo.value
     if (inpElemVal.length) {
         store.dispatch(addTodoAction(inpElemVal))
 
@@ -31,10 +31,13 @@ const addTodoHandler = () => {
           </div>
         </section>
     `)
-        inpElemVal.classList.remove('lineOver')
+        inputElemTodo.value = ''
+        alert.classList.remove('text-danger')
+        alert.classList.add('text-success')
         alert.innerHTML = 'Success'
     } else {
-        inpElemVal.classList.add('lineOver')
+        alert.classList.remove('text-success')
+        alert.classList.add('text-danger')
         alert.innerHTML = 'Error : Input Empty'
     }
 }
