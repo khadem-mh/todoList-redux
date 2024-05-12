@@ -7,9 +7,11 @@ export const completeTodo = 'COMPLETE_TODO'
 // Reducer
 
 // Action Creators
-const addTodoAction = () => {
+const addTodoAction = text => {
     return {
         type: addTodo,
+        text,
+        completed: false
     }
 }
 const clearAllTodosAction = () => {
@@ -17,13 +19,16 @@ const clearAllTodosAction = () => {
         type: clearAllTodos,
     }
 }
-const removeTodoAction = () => {
+const removeTodoAction = ID => {
     return {
         type: removeTodo,
+        ID
     }
 }
-const completeTodoAction = () => {
+const completeTodoAction = ID => {
     return {
         type: completeTodo,
+        ID,
+        completed: true
     }
 }
