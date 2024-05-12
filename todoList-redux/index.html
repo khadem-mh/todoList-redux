@@ -14,17 +14,12 @@
 
 <body>
 
-
-
-
-
-
   <div class="container mt-4">
     <div class="row">
 
       <h1 class="fw-bold text-center text-light fst-italic" style="text-shadow: 3px 3px 1px #ccc;"><span
           class="text-success">T</span>odo
-        <span class="text-success">L</span>ist <span class="text-success">A</span>pp
+        <span class="text-success">L</span>ist <span class="text-success">A</span>pp<span class="redux"> Redux</span>
       </h1>
 
 
@@ -61,12 +56,26 @@
           <span class="text-success">T</span>odo <span class="text-success">L</span>ist
         </h3>
         <div id="mainTodos" class="mt-3">
+
+          <section class='card card-body bg-transparent border-success mt-2'>
+            <div class='d-flex flex-row-reverse align-items-center justify-content-between'>
+              <div class='btn-group'>
+                <i class="btn btn-outline-success">Complete</i>
+                <i class="btn btn-outline-danger">Delete</i>
+              </div>
+              <p class='card-title text-light h5 mb-0 bg-dark py-2 px-3 me-3 rounded overflow-auto fst-italic'>todoTitle
+              </p>
+            </div>
+          </section>
+
+
         </div>
 
       </div>
     </div>
 
   </div>
+
 
 
 
