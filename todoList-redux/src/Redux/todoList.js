@@ -5,6 +5,24 @@ export const removeTodo = 'REMOVE_TODO'
 export const completeTodo = 'COMPLETE_TODO'
 
 // Reducer
+export default function reducer(state = 0, action) {
+    switch (action.type) {
+        case increaseNumber: {
+            return state + 1
+        }
+        case decreaseNumber: {
+            return state - 1
+        }
+        case setZeroNumber: {
+            return 0
+        }
+        case rotateCounterBox: {
+            state = typeof state === 'number' ? false : state ? true : false
+            return !state
+        }
+        default: return state
+    }
+}
 
 // Action Creators
 const addTodoAction = text => {
