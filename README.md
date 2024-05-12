@@ -4,7 +4,7 @@
  <p align="center"> React Js expert and FrontEnd Developer from Iran.</p>
 
 ## Description Project
-- A beautiful counter with the ability to rotate the main container box to 45 degree angles
+- A beautiful todo-list with `Redux Js`
 
 - Use the ducks method in redux
 
