@@ -15,9 +15,14 @@
     margin-left: 10px;
 }
 
+.todo-title-user {
+    color: lightgray;
+}
+
 .lineOver {
     text-decoration: line-through;
-    text-decoration-color: red;
+    text-decoration-color: gray;
+    color: gray !important;
 }
 
 .redux {

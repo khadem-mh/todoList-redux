@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 import {
-    addTodoAction, clearAllTodosAction, removeTodoAction, completeTodoAction
+  addTodoAction, clearAllTodosAction, removeTodoAction, completeTodoAction
 } from "./src/Redux/todoList.js"
 import reducer from "./src/Redux/todoList.js"
 
@@ -15,31 +15,50 @@ const alert = $.getElementById('alert')
 const store = createStore(reducer)
 
 const addTodoHandler = () => {
-    let inpElemVal = inputElemTodo.value
-    if (inpElemVal.length) {
-        store.dispatch(addTodoAction(inpElemVal))
+  let inpElemVal = inputElemTodo.value
+  if (inpElemVal.length) {
+    store.dispatch(addTodoAction(inpElemVal))
 
-        containerMainTodos.insertAdjacentHTML('beforeend', `
-        <section class='card card-body bg-transparent border-success mt-2'>
+    containerMainTodos.insertAdjacentHTML('beforeend', `
+        <section class='card card-body bg-transparent border-success parent-todo mt-2'>
           <div class='d-flex flex-row-reverse align-items-center justify-content-between'>
-            <div class='btn-group'>
+            <div class='btn-group' data-id="${store.getState().length}">
               <i class="btn btn-outline-success">Complete</i>
               <i class="btn btn-outline-danger">Delete</i>
             </div>
-            <p class='card-title text-light h5 mb-0 bg-dark py-2 px-3 me-3 rounded overflow-auto fst-italic'>${inpElemVal}
+            <p class='card-title todo-title-user h5 mb-0 bg-dark py-2 px-3 me-3 rounded overflow-auto fst-italic'>${inpElemVal}
             </p>
           </div>
         </section>
     `)
-        inputElemTodo.value = ''
-        alert.classList.remove('text-danger')
-        alert.classList.add('text-success')
-        alert.innerHTML = 'Success'
-    } else {
-        alert.classList.remove('text-success')
-        alert.classList.add('text-danger')
-        alert.innerHTML = 'Error : Input Empty'
-    }
+    inputElemTodo.value = ''
+    alert.classList.remove('text-danger')
+    alert.classList.add('text-success')
+    alert.innerHTML = 'Success'
+
+    const arrTodos = document.querySelectorAll('.btn-outline-success')
+
+    arrTodos.forEach(todo => {
+      todo.addEventListener('click', e => {
+        console.log(e.target.parentElement.nextElementSibling);
+        let idElem = e.target.parentElement.dataset.id
+        store.dispatch(completeTodoAction(idElem))
+        let titleTodo = e.target.parentElement.nextElementSibling
+
+        if (titleTodo.classList.contains('lineOver')) {
+          e.target.parentElement.nextElementSibling.classList.remove('lineOver')
+        } else {
+          e.target.parentElement.nextElementSibling.classList.add('lineOver')
+        }
+      })
+
+    })
+
+  } else {
+    alert.classList.remove('text-success')
+    alert.classList.add('text-danger')
+    alert.innerHTML = 'Error : Input Empty'
+  }
 }
 
 const clearTodoListHandler = () => {
