@@ -42,4 +42,10 @@ const addTodoHandler = () => {
     }
 }
 
+const clearTodoListHandler = () => {
+  store.dispatch(clearAllTodosAction())
+  containerMainTodos.innerHTML = ''
+}
+
 addTodoBtn.addEventListener('click', addTodoHandler)
+clearTodoBtn.addEventListener('click', clearTodoListHandler)
