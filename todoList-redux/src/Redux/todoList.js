@@ -20,19 +20,18 @@ export default function reducer(state = [], action) {
         case clearAllTodos: {
             return []
         }
-        case removeTodo: return stateArr.filter(todo => todo.id !== action.ID)
+        case removeTodo: return stateArr.filter(todo => todo.id !== +action.ID)
         case completeTodo: {
-            let beforeTodos = state.filter(todo => todo.id < action.ID)
-            let newTodo = state.filter(todo => todo.id == action.ID && (todo.completed ? (todo.completed = false) : (todo.completed = true)))
-            let afterTodo = state.filter(todo => todo.id > action.ID)
-            const changeState = [
-                ...beforeTodos,
-                ...newTodo,
-                ...afterTodo
-            ]
-            console.log(changeState);
-            return changeState
+            let newTodo = stateArr.map(todo => {
+                if (todo.id === action.ID) {
+                    return { ...todo, completed: !todo.completed }
+                }
+                return todo
+            });
+            return newTodo
         }
+
+
         default: return state
     }
 }
@@ -63,7 +62,6 @@ export const removeTodoAction = ID => {
 export const completeTodoAction = ID => {
     return {
         type: completeTodo,
-        ID,
-        completed: true
+        ID
     }
 }
