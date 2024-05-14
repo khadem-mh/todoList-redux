@@ -40,12 +40,10 @@ const addTodoHandler = () => {
 
     arrTodos.forEach(todo => {
       todo.addEventListener('click', e => {
-        console.log(e.target.parentElement.nextElementSibling);
         let idElem = e.target.parentElement.dataset.id
         store.dispatch(completeTodoAction(idElem))
-        let titleTodo = e.target.parentElement.nextElementSibling
-
-        if (titleTodo.classList.contains('lineOver')) {
+        console.log('=>=>=>',store.getState());
+        if (e.target.parentElement.nextElementSibling.classList.contains('lineOver')) {
           e.target.parentElement.nextElementSibling.classList.remove('lineOver')
         } else {
           e.target.parentElement.nextElementSibling.classList.add('lineOver')
