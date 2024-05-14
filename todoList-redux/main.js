@@ -36,8 +36,8 @@ const addTodoHandler = () => {
     alert.classList.add('text-success')
     alert.innerHTML = 'Success'
 
-    const arrTodos = document.querySelectorAll('.btn-outline-success')
     const btnRemoveTodos = document.querySelectorAll('.btn-outline-danger')
+    const btnCompleteTodos = document.querySelectorAll('.btn-outline-success')
 
     //remove-todo
     btnRemoveTodos.forEach(todo => {
@@ -48,9 +48,11 @@ const addTodoHandler = () => {
     })
 
     //complete-todo
-    arrTodos.forEach(todo => {
+    btnCompleteTodos.forEach(todo => {
       todo.addEventListener('click', e => {
+
         store.dispatch(completeTodoAction(e.target.parentElement.dataset.id))
+        console.log('GET_STATE =>', store.getState());
         if (e.target.parentElement.nextElementSibling.classList.contains('lineOver')) e.target.parentElement.nextElementSibling.classList.remove('lineOver')
         else e.target.parentElement.nextElementSibling.classList.add('lineOver')
       })

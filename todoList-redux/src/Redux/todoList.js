@@ -17,21 +17,12 @@ export default function reducer(state = [], action) {
             stateArr.push(newTod)
             return stateArr
         }
-        case clearAllTodos: {
-            return []
-        }
+        case clearAllTodos: return []
         case removeTodo: return stateArr.filter(todo => todo.id !== +action.ID)
         case completeTodo: {
-            let newTodo = stateArr.map(todo => {
-                if (todo.id === action.ID) {
-                    return { ...todo, completed: !todo.completed }
-                }
-                return todo
-            });
-            return newTodo
+            stateArr[action.ID - 1].completed = !!stateArr[action.ID - 1].completed 
+            return stateArr
         }
-
-
         default: return state
     }
 }
