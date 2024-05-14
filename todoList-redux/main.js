@@ -39,23 +39,21 @@ const addTodoHandler = () => {
     const arrTodos = document.querySelectorAll('.btn-outline-success')
     const btnRemoveTodos = document.querySelectorAll('.btn-outline-danger')
 
+    //remove-todo
     btnRemoveTodos.forEach(todo => {
       todo.addEventListener('click', e => {
         store.dispatch(removeTodoAction(e.target.parentElement.dataset.id))
         e.target.parentElement.parentElement.parentElement.remove()
-        console.log(store.getState());
       })
     })
 
+    //complete-todo
     arrTodos.forEach(todo => {
       todo.addEventListener('click', e => {
-        let idElem = e.target.parentElement.dataset.id
-        store.dispatch(completeTodoAction(idElem))
+        store.dispatch(completeTodoAction(e.target.parentElement.dataset.id))
         if (e.target.parentElement.nextElementSibling.classList.contains('lineOver')) e.target.parentElement.nextElementSibling.classList.remove('lineOver')
         else e.target.parentElement.nextElementSibling.classList.add('lineOver')
-
       })
-
     })
 
   } else {
