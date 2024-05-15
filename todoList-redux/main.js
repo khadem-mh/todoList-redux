@@ -6,7 +6,6 @@ import reducer from "./src/Redux/todoList.js"
 
 const $ = document
 const inputElemTodo = $.getElementById("inputElemTodo")
-const divElemMain = $.getElementById('mainTodos')
 const addTodoBtn = $.getElementById("addTodoBtn")
 const clearTodoBtn = $.getElementById("clearTodoBtn")
 const containerMainTodos = $.getElementById("mainTodos")
