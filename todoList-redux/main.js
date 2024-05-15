@@ -18,46 +18,14 @@ const addTodoHandler = () => {
   let inpElemVal = inputElemTodo.value
   if (inpElemVal.length) {
     store.dispatch(addTodoAction(inpElemVal))
+    const todos = store.getState()
+    console.log(todos);
+    generateTodosInDom(todos)
 
-    containerMainTodos.insertAdjacentHTML('beforeend', `
-        <section class='card card-body bg-transparent border-success parent-todo mt-2'>
-          <div class='d-flex flex-row-reverse align-items-center justify-content-between'>
-            <div class='btn-group' data-id="${store.getState().length}">
-              <i class="btn btn-outline-success">Complete</i>
-              <i class="btn btn-outline-danger">Delete</i>
-            </div>
-            <p class='card-title todo-title-user h5 mb-0 bg-dark py-2 px-3 me-3 rounded overflow-auto fst-italic'>${inpElemVal}
-            </p>
-          </div>
-        </section>
-    `)
     inputElemTodo.value = ''
     alert.classList.remove('text-danger')
     alert.classList.add('text-success')
     alert.innerHTML = 'Success'
-
-    const btnRemoveTodos = document.querySelectorAll('.btn-outline-danger')
-    const btnCompleteTodos = document.querySelectorAll('.btn-outline-success')
-
-    //remove-todo
-    btnRemoveTodos.forEach(todo => {
-      todo.addEventListener('click', e => {
-        store.dispatch(removeTodoAction(e.target.parentElement.dataset.id))
-        e.target.parentElement.parentElement.parentElement.remove()
-      })
-    })
-
-    //complete-todo
-    btnCompleteTodos.forEach(todo => {
-      todo.addEventListener('click', e => {
-
-        store.dispatch(completeTodoAction(e.target.parentElement.dataset.id))
-        console.log('GET_STATE =>', store.getState());
-        if (e.target.parentElement.nextElementSibling.classList.contains('lineOver')) e.target.parentElement.nextElementSibling.classList.remove('lineOver')
-        else e.target.parentElement.nextElementSibling.classList.add('lineOver')
-      })
-    })
-
   } else {
     alert.classList.remove('text-success')
     alert.classList.add('text-danger')
@@ -70,6 +38,38 @@ const clearTodoListHandler = () => {
   containerMainTodos.innerHTML = ''
 }
 
+const generateTodosInDom = todos => {
+  containerMainTodos.innerHTML = ''
+  todos.forEach(todo => {
+    containerMainTodos.insertAdjacentHTML('beforeend', `
+      <section class='card card-body bg-transparent border-success parent-todo mt-2'>
+        <div class='d-flex flex-row-reverse align-items-center justify-content-between'>
+          <div class='btn-group'>
+            <i class="btn btn-outline-success" onclick=isCompltedTodoHandler(${todo.id})>Complete</i>
+            <i class="btn btn-outline-danger" onclick=removeTodoHandler(${todo.id})>Delete</i>
+          </div>
+          <p class='card-title todo-title-user h5 mb-0 bg-dark py-2 px-3 me-3 rounded overflow-auto fst-italic  ${todo.completed ? 'lineOver' : ''}'>${todo.text}
+          </p>
+        </div>
+      </section>
+    `)
+  })
+}
+
+const isCompltedTodoHandler = ID => {
+  store.dispatch(completeTodoAction(ID))
+  const todos = store.getState()
+  console.log('todos', todos);
+  generateTodosInDom(todos)
+}
+
+const removeTodoHandler = ID => {
+  store.dispatch(removeTodoAction(ID))
+  e.target.parentElement.parentElement.parentElement.remove()
+}
+
+window.isCompltedTodoHandler = isCompltedTodoHandler
+window.removeTodoHandler = removeTodoHandler
 addTodoBtn.addEventListener('click', addTodoHandler)
 clearTodoBtn.addEventListener('click', clearTodoListHandler)
 clearTodoBtn.addEventListener('click', clearTodoListHandler)

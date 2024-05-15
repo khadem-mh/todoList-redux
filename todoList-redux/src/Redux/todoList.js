@@ -20,7 +20,11 @@ export default function reducer(state = [], action) {
         case clearAllTodos: return []
         case removeTodo: return stateArr.filter(todo => todo.id !== +action.ID)
         case completeTodo: {
-            stateArr[action.ID - 1].completed = !!stateArr[action.ID - 1].completed 
+            stateArr.some(todo => {
+                if (todo.id === Number(action.ID)) {
+                    todo.completed = !todo.completed
+                }
+            })
             return stateArr
         }
         default: return state
