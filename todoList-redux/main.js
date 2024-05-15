@@ -57,14 +57,12 @@ const generateTodosInDom = todos => {
 
 const isCompltedTodoHandler = ID => {
   store.dispatch(completeTodoAction(ID))
-  const todos = store.getState()
-  console.log('todos', todos);
-  generateTodosInDom(todos)
+  generateTodosInDom(store.getState())
 }
 
 const removeTodoHandler = ID => {
   store.dispatch(removeTodoAction(ID))
-  e.target.parentElement.parentElement.parentElement.remove()
+  generateTodosInDom(store.getState())
 }
 
 window.isCompltedTodoHandler = isCompltedTodoHandler
