@@ -2,6 +2,19 @@
     width: 80%;
 }
 
+.form-select {
+    cursor: pointer;
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: 1rem;
+    background-image: url('../../public/s.png') !important;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+}
+
+option {
+    color: black !important;
+}
+
 #todoList li {
     list-style-type: none;
 }
