@@ -1,5 +1,6 @@
 // Actions
 export const addTodo = 'ADD_TODO'
+export const getAllTodos = 'GET_ALL_TODOS'
 export const clearAllTodos = 'CLEAR_ALL_TODOS'
 export const removeTodo = 'REMOVE_TODO'
 export const completeTodo = 'COMPLETE_TODO'
@@ -17,6 +18,7 @@ export default function reducer(state = [], action) {
             stateArr.push(newTod)
             return stateArr
         }
+        case getAllTodos: return state
         case clearAllTodos: return []
         case removeTodo: return stateArr.filter(todo => todo.id !== +action.ID)
         case completeTodo: {
@@ -38,6 +40,12 @@ export const addTodoAction = text => {
         id: 0,
         text,
         completed: false
+    }
+}
+
+export const getAllTodosAction = () => {
+    return {
+        type: getAllTodos,
     }
 }
 

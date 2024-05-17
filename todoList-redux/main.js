@@ -1,11 +1,12 @@
 import { createStore } from 'redux'
 import {
-  addTodoAction, clearAllTodosAction, removeTodoAction, completeTodoAction
+  addTodoAction, clearAllTodosAction, removeTodoAction, completeTodoAction, getAllTodosAction
 } from "./src/Redux/todoList.js"
 import reducer from "./src/Redux/todoList.js"
 
 const $ = document
 const inputElemTodo = $.getElementById("inputElemTodo")
+const filterTodos = $.getElementById("filterTodos")
 const addTodoBtn = $.getElementById("addTodoBtn")
 const clearTodoBtn = $.getElementById("clearTodoBtn")
 const containerMainTodos = $.getElementById("mainTodos")
@@ -65,8 +66,18 @@ const removeTodoHandler = ID => {
   generateTodosInDom(store.getState())
 }
 
+const filterTodosHandler = e => {
+  let selectOptionVal = e.target.value
+  store.dispatch(getAllTodosAction())
+  let newState = store.getState()
+  if (selectOptionVal === 'all') generateTodosInDom(newState)
+  else if (selectOptionVal === 'complete') generateTodosInDom(newState.filter(todo => todo.completed))
+  else if (selectOptionVal === 'incomplete') generateTodosInDom(newState.filter(todo => !todo.completed))
+}
+
 window.isCompltedTodoHandler = isCompltedTodoHandler
 window.removeTodoHandler = removeTodoHandler
 addTodoBtn.addEventListener('click', addTodoHandler)
 clearTodoBtn.addEventListener('click', clearTodoListHandler)
 clearTodoBtn.addEventListener('click', clearTodoListHandler)
+filterTodos.addEventListener('change', e => filterTodosHandler(e))
