@@ -25,7 +25,7 @@
 
 ## View of the project
 
-<img src="./Video/counter.gif" width="450px"/>
+<img src="./Video/todoList.gif" width="1000px"/>
 
 ## Getting Started
 
